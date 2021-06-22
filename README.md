@@ -70,4 +70,23 @@ arguments:
         keyword arguments for compatibility (e.g. you can use sigma to specify the error in y)
 
 ## GUI interface
-![The GUI interface](/images/curvefitgui1.png)    
+Once the `gui` is executed the following window is visible. An explanation of the different controls is described below the figure.
+
+![The GUI interface](/images/curvefitgui2.png)    
+
+### GUI controls
+1. **Data plot:** A matplotlib plot that shows the data as solid dots and both y-error and x-error errorbars if provided. A fitted curve as a dashed line is shown if a fit is performed.
+2. **Residual plot**A matplotlib plot that shows the residuals as the difference between the measured and fitted values:
+$$ res = y_{measured} - f(x_{measured}) $$
+3. **Model settings:** Here you can enter inital values for the fitparameters. By ticking the chcekbox `fix` you can set a parameter to fixed:e.g. the parameter is not optmised during the fit.
+4. **Weight settings:** If error data on the y-values are passed using the keyword argument `yerr` you can use the dropdownbox to set how the error data is treated:
+    - *None*: the error data is ignored
+    - *Relative*: Use the error data for a relative weight. Corresponds to setting scipy's curve_fit() function keyword `absolute_sigma = False`.
+    - *Standard deviation*: Treat the error data as being standard deviations. Corresponds to setting scipy's curve_fit() function keyword `absolute_sigma = True`.
+5. **Evaluate:** Use this button to compute the model function given the current values of the parameters (set in the model settings panel)
+6. **Fit:** Performs the fit and updates the parameter values.
+7. **Report:** When a fit is performed, the results are shown here. The information on the model is actually the provided docstring of the function `f` that is passed to the `curvefitgui` function.
+8. **Quit:** Quits the gui and returns the fitparameters `popt` and `pcov`.
+9. **Toolbar:** This is the standard matplotlib toolbar to adjust some plot properties and provides zoom/pan and save options.
+10. **FitTextbox:** This textbox is generated if a valid fit is performed. It can be moved by the mouse to any conveniant positions in the plot.
+11. **Range Selector** Activates/deactivates the range-selector. The range-selector allows to select a datarange used for fitting. Only datapoints that are within the two vertical dashed lines are considered during fitting. The lines can be moved using the mouse.
