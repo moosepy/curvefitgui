@@ -1,5 +1,6 @@
 # A GUI for scicpy's curve_fit() function
 
+
 ![The GUI interface](/images/curvefitgui1.png) 
 
 `curvefitgui` is a graphical interface to the non-linear curvefit function [curve_fit](https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.optimize.curve_fit.html?highlight=scipy%20optimize%20curve_fit#scipy.optimize.curve_fit) of the scipy.optimize package. Currently, only the Levenberg-Marquard optimizer is supported. 
