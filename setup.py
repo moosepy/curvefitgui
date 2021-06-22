@@ -9,22 +9,35 @@ README = (HERE / "README.md").read_text()
 
 # This call to setup() does all the work
 setup(
-    name="curve_fit-gui",
-    version="1.0.0",
-    description="Gui for scipy curve_fit() function",
+    name="curvefitgui",
+    version="0.1.0",
+    description="GUI for the scipy.optimize.curve_fit() function",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/", # need to add rep ref
+    url="https://github.com/kangercode/curvefitgui", # need to add rep ref
     author="jskanger",
-    author_email="j.s.kanger@utwente.nl", # something else?
+    author_email="kangerdev@icloud.com", # something else?
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
+    python_requires='>=3.6, <4',
     packages=find_packages(exclude=("tests",)),
     include_package_data=True,
-    install_requires=["matplotlib", ], # need to add
-    # add entrypoints?
+    install_requires=[
+                        "matplotlib", 
+                        "numpy",
+                        "configparser",
+                        "warnings"
+                        "sys",
+                        "scipy",
+                        "PyQt5"
+                        "inspect",
+                        "dataclasses",
+                        "typing"
+    ], # need to check versions
+    package_data={'curvefitgui': ['config.txt']} # check
+    
 )
