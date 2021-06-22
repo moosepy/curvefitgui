@@ -3,7 +3,7 @@
 
 ![The GUI interface](/images/curvefitgui1.png) 
 
-`curvefitgui` is a graphical interface to the non-linear curvefit function [curve_fit](https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.optimize.curve_fit.html?highlight=scipy%20optimize%20curve_fit#scipy.optimize.curve_fit) of the scipy.optimize package. Currently, only the Levenberg-Marquard optimizer is supported. 
+`curvefitgui` is a graphical interface to the non-linear curvefit function [scipy.optimise.curve_fit API reference](https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.optimize.curve_fit.html?highlight=scipy%20optimize%20curve_fit#scipy.optimize.curve_fit) of the scipy.optimize package. Currently, only the Levenberg-Marquard optimizer is supported. 
 
 ## Installation
 
@@ -37,9 +37,15 @@ def f(x, a, b):
 cfg.curve_fit_gui(f, xdata, ydata)   
 ```
 ## Arguments
+```python
+curve_fit_gui(f, xdata, ydata, xerr=None, yerr=None, p0=None, 
+              xlabel='x-axis', ylabel='y-axis', absolute_sigma=False, 
+              jac=None, showgui=True, **kwargs)
+```
+
 `curve_fit_gui` accepts the following arguments:
 - **`f`:** callable
-        function that defines the fitfunction
+        function that defines the fitfunction. The first argument of `f` should be the independent variable; other arguments (at least one) are considered to be the fitparameters. 
 - **`xdata`:** 1-D numpy array
         x-coordinates of the data
 - **`ydata`:** 1-D numpy array
@@ -69,6 +75,11 @@ arguments:
 - **`kwargs`:**
         keyword arguments for compatibility (e.g. you can use sigma to specify the error in y)
 
+## Returns
+- **`popt`:** The values of the fitparameters that minimised the squared residuals if a succesful fit was performed, else *None*.
+- **`pcov`:** The estimated covariance of popt. 
+(see also: [scipy.optimise.curve_fit API reference](https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.optimize.curve_fit.html?highlight=scipy%20optimize%20curve_fit#scipy.optimize.curve_fit))
+
 ## GUI interface
 Once the `gui` is executed the following window is visible. An explanation of the different controls is described below the figure.
 
@@ -76,8 +87,7 @@ Once the `gui` is executed the following window is visible. An explanation of th
 
 ### GUI controls
 1. **Data plot:** A matplotlib plot that shows the data as solid dots and both y-error and x-error errorbars if provided. A fitted curve as a dashed line is shown if a fit is performed.
-2. **Residual plot**A matplotlib plot that shows the residuals as the difference between the measured and fitted values:
-$$ res = y_{measured} - f(x_{measured}) $$
+2. **Residual plot** A matplotlib plot that shows the residuals as the difference between the measured and fitted values: `residual = ydata - f(xdata, *fitparameters)` 
 3. **Model settings:** Here you can enter inital values for the fitparameters. By ticking the chcekbox `fix` you can set a parameter to fixed:e.g. the parameter is not optmised during the fit.
 4. **Weight settings:** If error data on the y-values are passed using the keyword argument `yerr` you can use the dropdownbox to set how the error data is treated:
     - *None*: the error data is ignored
