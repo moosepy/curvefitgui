@@ -1,0 +1,41 @@
+
+[general]
+# number of points in xrange for computing fitcurve
+numpoints = 1000
+
+# number of significant digits of fit parameters shown in the gui
+significant_digits = 10
+
+# if yes, the residuals are sorted based on x-values
+sort_residuals = yes
+
+# if yes, a warning box is shown related to x-errors
+show_x_error_warning = yes
+
+[fitparameter]
+# number of significant digits shown in textbox
+significant_digits = 4
+
+# number of significant digits shown in textbox for fixed parameters
+significant_digits_fixed = 4
+
+[reportview]
+# font used in reportview
+font = Courier
+size = 12
+
+[ticklabels]
+font = Times New Roman
+size = 12
+color = black
+
+[text]
+# font used in labels, legends and textboxes
+font = Times New Roman
+size = 12
+
+[errorbars]
+x_bar_color = gray
+y_bar_color = black
+x_bar_thickness = 1
+y_bar_thickness = 2
