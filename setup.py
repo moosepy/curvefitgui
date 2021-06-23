@@ -29,11 +29,8 @@ setup(
                         "matplotlib", 
                         "numpy",
                         "configparser",
-                        "warnings"
-                        "sys",
                         "scipy",
-                        "PyQt5"
-                        "inspect",
+                        "PyQt5",
                         "dataclasses",
                         "typing"
     ], # need to check versions
