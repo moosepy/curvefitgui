@@ -23,7 +23,7 @@ setup(
         "Programming Language :: Python :: 3",
     ],
     python_requires='>=3.7, <4',
-    packages=find_packages(exclude=("tests",)),
+    packages=["curvefitgui"],
     include_package_data=True,
     install_requires=[
                         "matplotlib", 
@@ -37,6 +37,5 @@ setup(
                         "dataclasses",
                         "typing"
     ], # need to check versions
-    package_data={'curvefitgui': ['config.txt']} # check
     
 )
