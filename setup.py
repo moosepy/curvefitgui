@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="curvefitgui",
-    version="1.0.0",
+    version="1.1.0",
     description="GUI for the scipy.optimize.curve_fit() function",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -25,6 +25,9 @@ setup(
     python_requires='>=3.7, <4',
     packages=["curvefitgui"],
     include_package_data=True,
+    package_data={
+      'curvefitgui': ['config.txt'],
+    },
     install_requires=[
                         "matplotlib", 
                         "numpy",
@@ -32,7 +35,8 @@ setup(
                         "scipy",
                         "PyQt5",
                         "dataclasses",
-                        "typing"
+                        "typing",
+                        "importlib_resources",
     ], # need to check versions
     
 )

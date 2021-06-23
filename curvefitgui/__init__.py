@@ -1,5 +1,7 @@
 
-from .curvefitgui import curve_fit_gui
-from .curvefitgui import linear_fit_gui
 
-__version__ = '1.0.0'
+from .__settings import __VERSION_INFO, settings
+from .__curvefitgui import curve_fit_gui
+from .__curvefitgui import linear_fit_gui
+
+__version__ = __VERSION_INFO

@@ -10,8 +10,8 @@ from matplotlib.path import Path
 import matplotlib.patches as patches
 from matplotlib import rcParams
 
-from .constants import *
-from .tools import float_to_str
+from .__settings import settings
+from .__tools import float_to_str
 
 
 rcParams['mathtext.fontset'] = 'cm'
@@ -137,20 +137,20 @@ class PlotCanvas(FigureCanvas):
         self.ax2 = self.fig.add_subplot(gs[2,0], sharex=self.ax1)  # ax2 holds the plot of the residuals and spans one row
         self.ax1.grid()
         self.ax2.grid()
-        self.ax1.set_ylabel(ylabel, fontname=TEXT_FONT, fontsize=TEXT_SIZE)
-        self.ax2.set_ylabel('residual', fontname=TEXT_FONT, fontsize=TEXT_SIZE)
-        self.ax2.set_xlabel(xlabel, fontname=TEXT_FONT, fontsize=TEXT_SIZE)
+        self.ax1.set_ylabel(ylabel, fontname=settings['TEXT_FONT'], fontsize=settings['TEXT_SIZE'])
+        self.ax2.set_ylabel('residual', fontname=settings['TEXT_FONT'], fontsize=settings['TEXT_SIZE'])
+        self.ax2.set_xlabel(xlabel, fontname=settings['TEXT_FONT'], fontsize=settings['TEXT_SIZE'])
         self.ax2.axhline(y=0, linestyle='--', color='black')    
         
         # create empty lines for the data, fit and residuals
         self.data_line, = self.ax1.plot([], [], color='black', marker='o', fillstyle='none', lw=0, label='data')
         self.fitted_line, = self.ax1.plot([], [], label='fitted curve', linestyle='--', color='black') 
         self.residual_line, = self.ax2.plot([],[], color='k', marker='.', lw=1)    
-        self.ax1.legend(loc='best', fancybox=True, framealpha=0.5, prop={'family':TEXT_FONT,'size':TEXT_SIZE})  
+        self.ax1.legend(loc='best', fancybox=True, framealpha=0.5, prop={'family':settings['TEXT_FONT'],'size':settings['TEXT_SIZE']})  
 
         # create an annotate box to hold the fitresults
         bbox_args = dict(boxstyle=patches.BoxStyle("round", pad=0.5), fc="0.9", alpha=0.5)
-        self.result_box = self.ax1.annotate('', xy=(0.5, 0.5), xycoords='axes fraction', fontname=TEXT_FONT, size=TEXT_SIZE, bbox=bbox_args)
+        self.result_box = self.ax1.annotate('', xy=(0.5, 0.5), xycoords='axes fraction', fontname=settings['TEXT_FONT'], size=settings['TEXT_SIZE'], bbox=bbox_args)
         self.result_box.draggable()
 
         # populate plotlines
@@ -160,20 +160,20 @@ class PlotCanvas(FigureCanvas):
         # create errorbars if required
         if self.data.ye is not None:
             self.yerrobar = self.ax1.errorbar(self.data.x, self.data.y, yerr=self.data.ye, 
-                                        fmt='none', color=BAR_Y_COLOR, elinewidth=BAR_Y_THICKNESS,
+                                        fmt='none', color=settings['BAR_Y_COLOR'], elinewidth=settings['BAR_Y_THICKNESS'],
                                         capsize=2)
         if self.data.xe is not None:
             self.xerrobar = self.ax1.errorbar(self.data.x, self.data.y, xerr=self.data.xe, 
-                                        fmt='none', color=BAR_X_COLOR, elinewidth=BAR_X_THICKNESS,
+                                        fmt='none', color=settings['BAR_X_COLOR'], elinewidth=settings['BAR_X_THICKNESS'],
                                         capsize=2)                                
 
         # set the ticklabel properties
         for labels in [self.ax1.get_xticklabels(), self.ax1.get_yticklabels(), 
                         self.ax2.get_xticklabels(), self.ax2.get_yticklabels()]:
             for tick in labels:
-                tick.set_color(TICK_COLOR)
-                tick.set_font(TICK_FONT)
-                tick.set_fontsize(TICK_SIZE) 
+                tick.set_color(settings['TICK_COLOR'])
+                tick.set_font(settings['TICK_FONT'])
+                tick.set_fontsize(settings['TICK_SIZE']) 
 
 
     def set_results_box(self, text, loc):
@@ -207,7 +207,7 @@ class PlotCanvas(FigureCanvas):
     def update_plot(self):        
         # update the residuals and/or fitline if present
         if self.residuals is not None:
-            if SORT_RESIDUALS:
+            if settings['SORT_RESIDUALS']:
                 order = np.argsort(self.data.x)
             else:
                 order = np.arange(0, len(self.data.x))    
@@ -256,7 +256,7 @@ class ParamWidget(QtWidgets.QWidget):
 
     def update_value(self):
         value = self.par.value
-        self.edit.setText(float_to_str(value, SIGNIFICANT_DIGITS))
+        self.edit.setText(float_to_str(value, settings['SIGNIFICANT_DIGITS']))
         return None        
 
 
@@ -264,7 +264,7 @@ class ReportWidget(QtWidgets.QTextEdit):
     """ prints a fitreport in a non-editable textbox. Report should be a (nested) dictionary """
     def __init__(self):
         QtWidgets.QTextEdit.__init__(self, 'none',)  
-        self.setFont(QtGui.QFont(REPORT_FONT, REPORT_SIZE))
+        self.setFont(QtGui.QFont(settings['REPORT_FONT'], settings['REPORT_SIZE']))
         self.setReadOnly(True)
   
     def update_report(self, fitreport):
@@ -279,7 +279,7 @@ class ReportWidget(QtWidgets.QTextEdit):
                     print_dict(item, level + 1)
                 else:
                     if type(item) == np.float64:
-                        item_str = float_to_str(item, SIGNIFICANT_DIGITS)
+                        item_str = float_to_str(item, settings['SIGNIFICANT_DIGITS'])
                     else:
                         item_str = str(item)    
                     self.insertPlainText(str(key) + '\t\t: ' + item_str + '\n')

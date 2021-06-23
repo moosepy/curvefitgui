@@ -4,9 +4,9 @@ import sys
 from scipy.optimize import OptimizeWarning
 from PyQt5 import QtCore, QtWidgets
 
-from .tools import Fitter, value_to_string
-from .widgets import PlotWidget, ModelWidget, ReportWidget
-from .constants import *
+from .__tools import Fitter, value_to_string
+from .__widgets import PlotWidget, ModelWidget, ReportWidget
+from .__settings import settings, __VERSION_INFO
 
 class MainWindow(QtWidgets.QMainWindow):
 
@@ -17,7 +17,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.fitter = afitter
         self.xlabel, self.ylabel = xlabel, ylabel   
         self.output = (None, None)
-        self.xerrorwarning = XERRORWARNING
+        self.xerrorwarning = settings['XERRORWARNING']
 
         self.initGUI()
         self.plotwidget.canvas.update_plot()
@@ -31,7 +31,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def initGUI(self):
         # main GUI proprieties
         self.setGeometry(100, 100, 1415, 900)
-        self.setWindowTitle(VERSION_INFO)
+        self.setWindowTitle(__VERSION_INFO)
         self._main = QtWidgets.QWidget()
         self.setCentralWidget(self._main)
 

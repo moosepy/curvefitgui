@@ -1,5 +1,5 @@
 
-from .constants import *
+from .__settings import settings
 import numpy as np
 import inspect
 from scipy.optimize import curve_fit, OptimizeWarning
@@ -168,14 +168,14 @@ class Fitter:
         self._create_report()
         return popt, pcov
 
-    def get_curve(self, xmin=None, xmax=None, numpoints=MODEL_NUMPOINTS):
+    def get_curve(self, xmin=None, xmax=None, numpoints=settings['MODEL_NUMPOINTS']):
         if xmin is None: xmin = self.data.x.min()
         if xmax is None: xmax = self.data.x.max()
         xcurve = np.linspace(xmin, xmax, numpoints)
         ycurve = self.model.evaluate(xcurve)
         return (xcurve, ycurve)
 
-    def get_fitcurve(self, xmin=None, xmax=None, numpoints=MODEL_NUMPOINTS):
+    def get_fitcurve(self, xmin=None, xmax=None, numpoints=settings['MODEL_NUMPOINTS']):
         if not self.fit_is_valid:
             return None
         return self.get_curve(xmin, xmax, numpoints)
@@ -308,18 +308,18 @@ def value_to_string(name, value, error, fixed):
 
     x_e = get_exponent(value)
     if fixed:
-        value_str, _ = float_to_string(value, x_e, CM_SIG_DIGITS_NO_ERROR)
+        value_str, _ = float_to_string(value, x_e, settings['CM_SIG_DIGITS_NO_ERROR'])
         error_str = None
         exponent = x_e
     else:
         dx_e = get_exponent(error)
         if x_e >= dx_e:
-            value_str, _ = float_to_string(value, x_e, CM_SIG_DIGITS + x_e - dx_e)
-            error_str, _ = float_to_string(error, x_e, CM_SIG_DIGITS)
+            value_str, _ = float_to_string(value, x_e, settings['CM_SIG_DIGITS'] + x_e - dx_e)
+            error_str, _ = float_to_string(error, x_e, settings['CM_SIG_DIGITS'])
             exponent = x_e
         else:
-            value_str, _ = float_to_string(value, dx_e, CM_SIG_DIGITS + x_e - dx_e)
-            error_str, _ = float_to_string(error, dx_e, CM_SIG_DIGITS)
+            value_str, _ = float_to_string(value, dx_e, settings['CM_SIG_DIGITS'] + x_e - dx_e)
+            error_str, _ = float_to_string(error, dx_e, settings['CM_SIG_DIGITS'])
             exponent = dx_e        
     combined =  name + to_latex(value_str, exponent, error_str)
 

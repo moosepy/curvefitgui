@@ -1,6 +1,6 @@
 
 import numpy as np
-from .gui import execute_gui
+from .__gui import execute_gui
 
 
 def linear_fit_gui(xdata, ydata, xerr=None, yerr=None, xlabel='x-axis', ylabel='y-axis', showgui=True):   
