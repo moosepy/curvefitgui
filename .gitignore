@@ -1,3 +1,5 @@
 tests/testsnippets.py
 todo.md
 _pychache_/
+.vscode
+curvefitgui/_pychache_
