@@ -4,9 +4,9 @@ import sys
 from scipy.optimize import OptimizeWarning
 from PyQt5 import QtCore, QtWidgets
 
-from tools import Fitter, value_to_string
-from widgets import PlotWidget, ModelWidget, ReportWidget
-from constants import *
+from .tools import Fitter, value_to_string
+from .widgets import PlotWidget, ModelWidget, ReportWidget
+from .constants import *
 
 class MainWindow(QtWidgets.QMainWindow):
 

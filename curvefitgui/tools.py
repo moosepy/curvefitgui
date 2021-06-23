@@ -1,5 +1,5 @@
 
-from constants import *
+from .constants import *
 import numpy as np
 import inspect
 from scipy.optimize import curve_fit, OptimizeWarning
