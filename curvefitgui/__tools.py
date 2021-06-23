@@ -61,7 +61,7 @@ class FitData:
 class Fitter:
     """ class to handle the fit """
 
-    WEIGHTOPTIONS = ('none', 'relative', 'standard deviation')
+    WEIGHTOPTIONS = ('none', 'relative', 'absolute')
 
     def __init__(self, func, xdata, ydata, xerr, yerr, p0, absolute_sigma, jac, **kwargs):
         
@@ -147,8 +147,8 @@ class Fitter:
             raise OptimizeWarning("The number of degrees of freedom (dof) should be at least one." + \
                             " Try to increase the number of datapoints or to decrease the number of free fitparameters.")
 
-        absolute_sigma = self.model.weight == 'standard deviation'
-        if self.model.weight == 'none':
+        absolute_sigma = self.model.weight == self.WEIGHTOPTIONS[2]
+        if self.model.weight == self.WEIGHTOPTIONS[0]:
             ye = np.ones(len(y))  # error of 1 is equal to no weights
 
         popt, pcov = curve_fit_wrapper(

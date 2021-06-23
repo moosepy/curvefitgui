@@ -6,7 +6,8 @@ from PyQt5 import QtCore, QtWidgets
 
 from .__tools import Fitter, value_to_string
 from .__widgets import PlotWidget, ModelWidget, ReportWidget
-from .__settings import settings, __VERSION_INFO
+from .__settings import settings
+from .__settings import __VERSION_INFO as VERSION_INFO
 
 class MainWindow(QtWidgets.QMainWindow):
 
@@ -31,7 +32,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def initGUI(self):
         # main GUI proprieties
         self.setGeometry(100, 100, 1415, 900)
-        self.setWindowTitle(__VERSION_INFO)
+        self.setWindowTitle(VERSION_INFO)
         self._main = QtWidgets.QWidget()
         self.setCentralWidget(self._main)
 
