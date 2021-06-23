@@ -1,5 +1,5 @@
-/tests/*
+/tests
 todo.md
 test_package.py
 .vscode
-/curvefitgui/__pycache__/*
+/curvefitgui/__pycache__
