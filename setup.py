@@ -7,10 +7,12 @@ HERE = pathlib.Path(__file__).parent
 # The text of the README file
 README = (HERE / "README.md").read_text()
 
+exec(open('./curvefitgui/__version.py').read())
+
 # This call to setup() does all the work
 setup(
     name="curvefitgui",
-    version="1.1.0",
+    version=__version__,
     description="GUI for the scipy.optimize.curve_fit() function",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -31,12 +33,9 @@ setup(
     install_requires=[
                         "matplotlib", 
                         "numpy",
-                        "configparser",
                         "scipy",
-                        "PyQt5",
-                        "dataclasses",
-                        "typing",
-                        "importlib_resources",
+                        "pyqt",
+                        "qtpy",
     ], # need to check versions
     
 )

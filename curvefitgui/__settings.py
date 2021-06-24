@@ -1,8 +1,6 @@
-import importlib_resources as _resources
+from importlib import resources as _resources
 import configparser
 
-
-__VERSION_INFO = '1.1.0'
 
 _config = configparser.ConfigParser()
 with _resources.path("curvefitgui", "config.txt") as _path:
