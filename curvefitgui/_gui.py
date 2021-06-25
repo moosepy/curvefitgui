@@ -4,10 +4,10 @@ import sys
 from scipy.optimize import OptimizeWarning
 from PyQt5 import QtCore, QtWidgets
 
-from .__tools import Fitter, value_to_string
-from .__widgets import PlotWidget, ModelWidget, ReportWidget
-from .__settings import settings
-from .__version import __version__ as CFGversion
+from ._tools import Fitter, value_to_string
+from ._widgets import PlotWidget, ModelWidget, ReportWidget
+from ._settings import settings
+from ._version import __version__ as CFGversion
 
 class MainWindow(QtWidgets.QMainWindow):
 

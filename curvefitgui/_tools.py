@@ -1,5 +1,5 @@
 
-from .__settings import settings
+from ._settings import settings
 import numpy as np
 import inspect
 from scipy.optimize import curve_fit, OptimizeWarning

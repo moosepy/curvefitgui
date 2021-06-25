@@ -10,8 +10,8 @@ from matplotlib.path import Path
 import matplotlib.patches as patches
 from matplotlib import rcParams
 
-from .__settings import settings
-from .__tools import float_to_str
+from ._settings import settings
+from ._tools import float_to_str
 
 
 rcParams['mathtext.fontset'] = 'cm'
