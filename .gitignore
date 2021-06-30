@@ -1,4 +1,7 @@
 /tests
+/build
+/dist
+/curvefitgui.egg-info
 todo.md
 test_package.py
 .vscode
