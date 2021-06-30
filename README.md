@@ -30,8 +30,8 @@ def f(x, a, b):
     return a * x + b
 
 # define x and y data as 1 dimensional numpy arrays of equal length
-    xdata = np.array([1, 2, 3, 4, 5])
-    ydata = np.array([-3.5, -2.4, -1, 0.5, 1.8])
+xdata = np.array([1, 2, 3, 4, 5])
+ydata = np.array([-3.5, -2.4, -1, 0.5, 1.8])
         
 # execute the function
 cfg.curve_fit_gui(f, xdata, ydata)   
