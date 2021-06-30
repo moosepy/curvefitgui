@@ -30,6 +30,7 @@ setup(
     include_package_data=True,
     package_data={
       'curvefitgui': ['config.txt'],
+      'images': ['curvefitgui1.png','curvefitgui2.png'],
     },
     # conda
     #install_requires=["matplotlib", "numpy", "scipy", "pyqt", "qtpy"], # need to check versions 
