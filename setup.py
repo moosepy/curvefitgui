@@ -16,7 +16,7 @@ setup(
     description="GUI for the scipy.optimize.curve_fit() function",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/kangercode/curvefitgui", 
+    url="https://github.com/moosepy/curvefitgui", 
     author="jskanger",
     author_email="kangerdev@icloud.com", 
     license="MIT",
