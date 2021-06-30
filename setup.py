@@ -17,7 +17,7 @@ setup(
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/moosepy/curvefitgui", 
-    author="jskanger",
+    author="kanger",
     author_email="kangerdev@icloud.com", 
     license="MIT",
     classifiers=[
