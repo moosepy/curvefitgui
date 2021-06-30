@@ -1,4 +1,4 @@
-# A GUI for scicpy's curve_fit() function
+# A GUI for scipy's curve_fit() function
 
 
 ![The GUI interface](/images/curvefitgui1.png) 
