@@ -7,7 +7,7 @@ HERE = pathlib.Path(__file__).parent
 # The text of the README file
 README = (HERE / "README.md").read_text()
 
-exec(open('./curvefitgui/__version.py').read())
+exec(open('./curvefitgui/_version.py').read())
 
 # This call to setup() does all the work
 setup(
