@@ -32,7 +32,7 @@ setup(
       'curvefitgui': ['config.txt'],
     },
     # conda
-    install_requires=["matplotlib", "numpy", "scipy", "pyqt", "qtpy"], # need to check versions 
+    #install_requires=["matplotlib", "numpy", "scipy", "pyqt", "qtpy"], # need to check versions 
     #PyPi
     #install_requires=["matplotlib", "numpy", "scipy", "pyqt5"], # need to check versions 
     
