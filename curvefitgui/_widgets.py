@@ -92,6 +92,8 @@ class RangeSelector:
 class PlotWidget(QtWidgets.QWidget):
     """ Qt widget to hold the matplotlib canvas and the tools for interacting with the plots """
     
+    resized = QtCore.pyqtSignal()  # emits when the widget is resized
+    
     def __init__(self, data, xlabel, ylabel):
         QtWidgets.QWidget.__init__(self)
 
@@ -110,6 +112,16 @@ class PlotWidget(QtWidgets.QWidget):
         self.toolbar.addSeparator()
         self.layout().addWidget(self.toolbar)
         self.layout().addWidget(self.canvas)
+
+        self.resized.connect(self.update_plot)  # update plot when window is resized to fit plot in window
+
+    def resizeEvent(self, event):
+        self.resized.emit()
+        return super(PlotWidget, self).resizeEvent(event)
+
+    def update_plot(self):
+        self.canvas.update_plot()
+           
 
     def _toggle_showselector(self):
         self.canvas.toggle_rangeselector()
@@ -133,8 +145,11 @@ class PlotCanvas(FigureCanvas):
 
         # create the figure and axes       
         gs = self.fig.add_gridspec(3, 1)  # define three rows and one column
-        self.ax1 = self.fig.add_subplot(gs[0:2,0])  # ax1 holds the plot of the data and spans two rows
-        self.ax2 = self.fig.add_subplot(gs[2,0], sharex=self.ax1)  # ax2 holds the plot of the residuals and spans one row
+        
+        # need to create ax2 first to prevent textbox related to ax1 appear behind residual plot
+        self.ax2 = self.fig.add_subplot(gs[2,0])  # ax2 holds the plot of the residuals and spans one row
+        self.ax1 = self.fig.add_subplot(gs[0:2,0], sharex=self.ax2)  # ax1 holds the plot of the data and spans two rows
+        
         self.ax1.grid()
         self.ax2.grid()
         self.ax1.set_ylabel(ylabel, fontname=settings['TEXT_FONT'], fontsize=settings['TEXT_SIZE'])

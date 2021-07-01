@@ -9,8 +9,10 @@ from ._widgets import PlotWidget, ModelWidget, ReportWidget
 from ._settings import settings
 from ._version import __version__ as CFGversion
 
-class MainWindow(QtWidgets.QMainWindow):
 
+
+class MainWindow(QtWidgets.QMainWindow):
+    
     def __init__(self, afitter, xlabel, ylabel):    
         super(MainWindow , self).__init__()
         
@@ -21,8 +23,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.xerrorwarning = settings['XERRORWARNING']
 
         self.initGUI()
-        self.plotwidget.canvas.update_plot()
         
+        self.plotwidget.update_plot()
+        
+       
     
     def closeEvent(self, event):
         """needed to properly quit when running in IPython console / Spyder IDE"""
@@ -64,7 +68,7 @@ class MainWindow(QtWidgets.QMainWindow):
         splitter.addWidget(self.plotwidget)
         splitter.addWidget(self.fitcontrolframe)
         mainlayout.addWidget(splitter)
-                 
+                
       
     def showdialog(self, message, icon, info='', details=''):
         """ shows an info dialog """
@@ -100,7 +104,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.plotwidget.canvas.set_fitline(self.fitter.get_curve())
         self.plotwidget.canvas.set_residuals(self.fitter.get_residuals())
         self.plotwidget.canvas.disable_results_box()
-        self.plotwidget.canvas.update_plot()
+        self.plotwidget.update_plot()
         
 
     def fit(self):
@@ -138,7 +142,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.plotwidget.canvas.set_fitline(self.fitter.get_fitcurve())
                 self.plotwidget.canvas.set_residuals(self.fitter.get_residuals())
                 self.plotwidget.canvas.set_results_box(self._get_result_box_text(), 2)
-                self.plotwidget.canvas.update_plot() 
+                self.plotwidget.update_plot() 
 
     def _get_result_box_text(self):
         text = 'Fit results:'
