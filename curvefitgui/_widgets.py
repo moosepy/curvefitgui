@@ -172,7 +172,7 @@ class PlotCanvas(FigureCanvas):
                         self.ax2.get_xticklabels(), self.ax2.get_yticklabels()]:
             for tick in labels:
                 tick.set_color(settings['TICK_COLOR'])
-                tick.set_font(settings['TICK_FONT'])
+                tick.set_fontproperties(settings['TICK_FONT'])
                 tick.set_fontsize(settings['TICK_SIZE']) 
 
 
