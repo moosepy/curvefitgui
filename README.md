@@ -1,9 +1,10 @@
 # A GUI for scipy's curve_fit() function
 
 
-![The GUI interface](/images/curvefitgui1.png) 
+![The GUI interface](https://github.com/moosepy/curvefitgui/raw/master/images/curvefitgui1.png)
 
-`curvefitgui` is a graphical interface to the non-linear curvefit function [scipy.optimise.curve_fit API reference](https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.optimize.curve_fit.html?highlight=scipy%20optimize%20curve_fit#scipy.optimize.curve_fit) of the scipy.optimize package. Currently, only the Levenberg-Marquard optimizer is supported. 
+
+`curvefitgui` is a graphical interface to the non-linear curvefit function [scipy.optimise.curve_fit API reference](https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.optimize.curve_fit.html?highlight=scipy%20optimize%20curve_fit#scipy.optimize.curve_fit) of the scipy.optimize package. Currently, only the Levenberg-Marquard optimizer is supported. The GUI is based on PyQt5. 
 
 ## Installation
 
@@ -11,12 +12,21 @@ You can install the `curvefitgui` form [PyPi](https://pypi.org/project/curvefitg
 
     pip install curvefitgui
 
-The GUI is supported on Python 3.7 and above.
+The GUI is supported on Python 3.7 and above.  
+**Note**: only `curvefitgui` is installed without any required dependencies. Depending on if you are using pip or conda to manage your environment you should manually install the following additional packages:  
+
+- Using `pip`:
+
+      pip install numpy scipy matplotlib PyQt5
+
+- Using `conda`:    
+
+      conda install numpy scipy matplotlib qtpy pyqt
 
 ## Basic usage
 A minimum example to use `curvefitgui.curve_fit_gui` is:
 ```python
-import curvefitgui as cfg
+from curvefitgui import curve_fit_gui
 import numpy as np
 
 # define a function for fitting
@@ -34,7 +44,7 @@ xdata = np.array([1, 2, 3, 4, 5])
 ydata = np.array([-3.5, -2.4, -1, 0.5, 1.8])
         
 # execute the function
-cfg.curve_fit_gui(f, xdata, ydata)   
+curve_fit_gui(f, xdata, ydata)   
 ```
 ## Arguments
 ```python
@@ -83,7 +93,7 @@ arguments:
 ## GUI interface
 Once the `gui` is executed the following window is visible. An explanation of the different controls is described below the figure.
 
-![The GUI interface](/images/curvefitgui2.png)    
+![The GUI interface](https://github.com/moosepy/curvefitgui/raw/master/images/curvefitgui2.png)    
 
 ### GUI controls
 1. **Data plot:** A matplotlib plot that shows the data as solid dots and both y-error and x-error errorbars if provided. A fitted curve as a dashed line is shown if a fit is performed.
