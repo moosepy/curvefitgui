@@ -115,6 +115,7 @@ class PlotWidget(QtWidgets.QWidget):
 
         self.resized.connect(self.update_plot)  # update plot when window is resized to fit plot in window
 
+
     def resizeEvent(self, event):
         self.resized.emit()
         return super(PlotWidget, self).resizeEvent(event)
@@ -135,7 +136,7 @@ class PlotCanvas(FigureCanvas):
         self.residuals = None  # contains the residuals if available
 
         # setup the FigureCanvas
-        self.fig = Figure()
+        self.fig = Figure(dpi=settings['FIG_DPI'])
         FigureCanvas.__init__(self, self.fig)
         FigureCanvas.setSizePolicy(self, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)  
@@ -245,7 +246,8 @@ class PlotCanvas(FigureCanvas):
         self.redraw()    
 
     def redraw(self):
-        self.fig.canvas.draw() 
+        #self.fig.canvas.draw() 
+        self.draw()
 
 
 class ParamWidget(QtWidgets.QWidget):

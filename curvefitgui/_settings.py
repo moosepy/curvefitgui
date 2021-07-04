@@ -37,3 +37,5 @@ settings['BAR_X_COLOR'] = _config['errorbars']['x_bar_color']
 settings['BAR_Y_THICKNESS'] = int(_config['errorbars']['y_bar_thickness'])
 settings['BAR_X_THICKNESS'] = int(_config['errorbars']['x_bar_thickness'])
 
+# figure
+settings['FIG_DPI'] = int(_config['figure']['dpi'])

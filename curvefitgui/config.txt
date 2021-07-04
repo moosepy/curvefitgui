@@ -39,3 +39,6 @@ x_bar_color = gray
 y_bar_color = black
 x_bar_thickness = 1
 y_bar_thickness = 2
+
+[figure]
+dpi = 100
