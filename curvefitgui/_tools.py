@@ -180,8 +180,12 @@ class Fitter:
             return None
         return self.get_curve(xmin, xmax, numpoints)
         
-    def get_residuals(self):
-        if not self.fit_is_valid:
+    def get_residuals(self, check=True):
+        """
+        return the residuals as y - f(x)
+        if check is True(default) only returns values if a valid fit is performed.
+        """
+        if not self.fit_is_valid and check:
             return None
         return self.data.y - self.model.evaluate(self.data.x)    
 

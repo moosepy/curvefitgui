@@ -102,7 +102,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # evaluate
         self.reportview.update_report({})
         self.plotwidget.canvas.set_fitline(self.fitter.get_curve())
-        self.plotwidget.canvas.set_residuals(self.fitter.get_residuals())
+        self.plotwidget.canvas.set_residuals(self.fitter.get_residuals(check=False))
         self.plotwidget.canvas.disable_results_box()
         self.plotwidget.update_plot()
         

@@ -136,7 +136,7 @@ class PlotCanvas(FigureCanvas):
         self.residuals = None  # contains the residuals if available
 
         # setup the FigureCanvas
-        self.fig = Figure(dpi=settings['FIG_DPI'])
+        self.fig = Figure(dpi=settings['FIG_DPI'], tight_layout=True)
         FigureCanvas.__init__(self, self.fig)
         FigureCanvas.setSizePolicy(self, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)  
@@ -155,13 +155,16 @@ class PlotCanvas(FigureCanvas):
         self.ax2.grid()
         self.ax1.set_ylabel(ylabel, fontname=settings['TEXT_FONT'], fontsize=settings['TEXT_SIZE'])
         self.ax2.set_ylabel('residual', fontname=settings['TEXT_FONT'], fontsize=settings['TEXT_SIZE'])
-        self.ax2.set_xlabel(xlabel, fontname=settings['TEXT_FONT'], fontsize=settings['TEXT_SIZE'])
-        self.ax2.axhline(y=0, linestyle='--', color='black')    
+        self.ax2.set_xlabel(xlabel, fontname=settings['TEXT_FONT'], fontsize=settings['TEXT_SIZE'])    
         
+
         # create empty lines for the data, fit and residuals
         self.data_line, = self.ax1.plot([], [], color='black', marker='o', fillstyle='none', lw=0, label='data')
         self.fitted_line, = self.ax1.plot([], [], label='fitted curve', linestyle='--', color='black') 
         self.residual_line, = self.ax2.plot([],[], color='k', marker='.', lw=1)    
+        self.zero_res = None  # holder for a dashed hline to indicate zero in the residual plot
+        
+        # create legend
         self.ax1.legend(loc='best', fancybox=True, framealpha=0.5, prop={'family':settings['TEXT_FONT'],'size':settings['TEXT_SIZE']})  
 
         # create an annotate box to hold the fitresults
@@ -171,7 +174,6 @@ class PlotCanvas(FigureCanvas):
 
         # populate plotlines
         self.data_line.set_data(self.data.x, self.data.y) 
-        self.residual_line.set_data(self.data.x[0], 0)  # need one datapoint for autoscaling to work
         
         # create errorbars if required
         if self.data.ye is not None:
@@ -222,12 +224,20 @@ class PlotCanvas(FigureCanvas):
    
     def update_plot(self):        
         # update the residuals and/or fitline if present
+        
         if self.residuals is not None:
+            # if the zero residual line is not yet created, do so
+            if self.zero_res is None:
+                self.ax2.axhline(y=0, linestyle='--', color='black')
+            
+            # sort data if required    
             if settings['SORT_RESIDUALS']:
                 order = np.argsort(self.data.x)
             else:
                 order = np.arange(0, len(self.data.x))    
+            
             self.residual_line.set_data(self.data.x[order], self.residuals[order])
+        
         if self.fitline is not None:
             self.fitted_line.set_data(self.fitline[0], self.fitline[1])
        
@@ -242,8 +252,8 @@ class PlotCanvas(FigureCanvas):
         self.ax2.set_ylim(-ymax, ymax)
 
         # draw the plot
-        self.fig.tight_layout()
         self.redraw()    
+
 
     def redraw(self):
         #self.fig.canvas.draw() 
