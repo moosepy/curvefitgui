@@ -172,28 +172,29 @@ def curve_fit_gui(f, xdata, ydata, xerr=None, yerr=None,
 
 def __main__():
     # example of use and testing"
-    print('Running curve_fit_gui() with some test data')
-
-    # create test data
-    U0 = 2.12
-    U = np.array([2.12,2.24,2.4,2.8,3.48,4.88,5.68,4.16,2.68,1.8,1.32,1.08,0.88,0.544,0.456,0.368,0.132])/U0 
-    f = np.array([465,925,1420,1905,2398,2894,3458,3956,4439,4990,5560,6024,6527,7541,8130,9141,14270])   
-    dU = np.ones_like(U) * np.sqrt(U) / 20
-    df = np.ones_like(f) * np.sqrt(f) * 5
+    print('Running curve_fit_gui() with some test data taken from scipy docs')
 
     # define fitfunction
-    def func(w,b,w0):
+    def func(x, a, b, c):
         """
-        2de - order system response
-        function: 1 / (np.sqrt((1 - (w / w0)**2)**2 + (2 * b * w / w0)**2))
-        b  : damping
-        w0 : resonance frequency
-        
+        exponential decay
+        function: a * exp(-b * x) + c
+        a : amplitude
+        b : rate
+        c : offset
         """
-        return 1 / (np.sqrt((1 - (w / w0)**2)**2 + (2 * b * w / w0)**2))
+        return a * np.exp(-b * x) + c
+
+    # create test data
+    xdata = np.linspace(0, 4, 50)
+    y = func(xdata, 2.5, 1.3, 0.5)
+    rng = np.random.default_rng()
+    yerr = 0.2 * np.ones_like(xdata)
+    y_noise = yerr * rng.normal(size=xdata.size)
+    ydata = y + y_noise
 
     # execute the gui
-    popt, pcov = curve_fit_gui(func, f, U, xerr=df, yerr=dU, xlabel='frequency / Hz', ylabel='amplitude / V')    
+    popt, pcov = curve_fit_gui(func, xdata, ydata, yerr=yerr, xlabel='x', ylabel='y')    
     print(f'popt = {popt}')
     print(f'pcov = {pcov}')
     
