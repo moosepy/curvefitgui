@@ -17,7 +17,7 @@ setup(
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/moosepy/curvefitgui", 
-    author="kanger",
+    author="moosepy",
     author_email="moose_dev@icloud.com", 
     license="MIT",
     classifiers=[
@@ -30,11 +30,10 @@ setup(
     include_package_data=True,
     package_data={
       'curvefitgui': ['config.txt'],
-      'images': ['curvefitgui1.png','curvefitgui2.png'],
     },
     # conda
     #install_requires=["matplotlib", "numpy", "scipy", "pyqt", "qtpy"], # need to check versions 
-    #PyPi
+    # PyPi
     #install_requires=["matplotlib", "numpy", "scipy", "pyqt5"], # need to check versions 
     
 )
