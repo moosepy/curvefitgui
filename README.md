@@ -48,9 +48,7 @@ curve_fit_gui(f, xdata, ydata)
 ```
 ## Arguments
 ```python
-curve_fit_gui(f, xdata, ydata, xerr=None, yerr=None, p0=None, 
-              xlabel='x-axis', ylabel='y-axis', absolute_sigma=False, 
-              jac=None, showgui=True, **kwargs)
+popt, pcov = curve_fit_gui(f, xdata, ydata, xerr=None, yerr=None, p0=None, xlabel='x-axis', ylabel='y-axis', absolute_sigma=False, jac=None, showgui=True, **kwargs)
 ```
 
 `curve_fit_gui` accepts the following arguments:
@@ -108,5 +106,5 @@ Once the `gui` is executed the following window is visible. An explanation of th
 7. **Report:** When a fit is performed, the results are shown here. The information on the model is actually the provided docstring of the function `f` that is passed to the `curvefitgui` function.
 8. **Quit:** Quits the gui and returns the fitparameters `popt` and `pcov`.
 9. **Toolbar:** This is the standard matplotlib toolbar to adjust some plot properties and provides zoom/pan and save options.
-10. **FitTextbox:** This textbox is generated if a valid fit is performed. It can be moved by the mouse to any conveniant positions in the plot.
+10. **FitTextbox:** This textbox is generated if a valid fit is performed. It can be moved by the mouse to any convenient positions in the plot.
 11. **Range Selector** Activates/deactivates the range-selector. The range-selector allows to select a datarange used for fitting. Only datapoints that are within the two vertical dashed lines are considered during fitting. The lines can be moved using the mouse.
