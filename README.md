@@ -48,7 +48,9 @@ curve_fit_gui(f, xdata, ydata)
 ```
 ## Arguments
 ```python
-popt, pcov = curve_fit_gui(f, xdata, ydata, xerr=None, yerr=None, p0=None, xlabel='x-axis', ylabel='y-axis', absolute_sigma=False, jac=None, showgui=True, **kwargs)
+popt, pcov = curve_fit_gui(f, xdata, ydata, xerr=None, yerr=None, p0=None, 
+                           xlabel='x-axis', ylabel='y-axis', absolute_sigma=False,
+                           jac=None, showgui=True, **kwargs)
 ```
 
 `curve_fit_gui` accepts the following arguments:
