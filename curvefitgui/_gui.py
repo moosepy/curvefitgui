@@ -36,7 +36,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def initGUI(self):
         # main GUI proprieties
         self.setGeometry(100, 100, 1415, 900)
-        self.setWindowTitle(CFGversion)
+        self.setWindowTitle('curvefitgui ' + CFGversion)
         self._main = QtWidgets.QWidget()
         self.setCentralWidget(self._main)
 
