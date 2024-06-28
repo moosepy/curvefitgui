@@ -31,9 +31,11 @@ setup(
     package_data={
       'curvefitgui': ['config.txt'],
     },
-    # conda
-    #install_requires=["matplotlib", "numpy", "scipy", "pyqt", "qtpy"], # need to check versions 
-    # PyPi
-    #install_requires=["matplotlib", "numpy", "scipy", "pyqt5"], # need to check versions 
-    
+    install_requires=[
+        "matplotlib",
+        "numpy",
+        "scipy",
+        # PyQt6 and PySide6 are not included here by purpose, to let the user
+        # choose which backend to use. PyQt5 or PySide2 are not supported.
+    ],
 )
