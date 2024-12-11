@@ -1,6 +1,6 @@
 # import required packges
 import numpy as np
-from PyQt5 import QtWidgets, QtGui, QtCore
+from matplotlib.backends.qt_compat import QtWidgets, QtGui, QtCore
 
 # Matplotlib packages
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -92,7 +92,7 @@ class RangeSelector:
 class PlotWidget(QtWidgets.QWidget):
     """ Qt widget to hold the matplotlib canvas and the tools for interacting with the plots """
     
-    resized = QtCore.pyqtSignal()  # emits when the widget is resized
+    resized = QtCore.Signal()  # emits when the widget is resized
     
     def __init__(self, data, xlabel, ylabel):
         QtWidgets.QWidget.__init__(self)
@@ -102,9 +102,9 @@ class PlotWidget(QtWidgets.QWidget):
         self.toolbar = NavigationToolbar(self.canvas, self)
         self.toolbar.addSeparator()
         
-        self.ACshowselector = QtWidgets.QAction('Activate/Clear RangeSelector')
+        self.ACshowselector = QtGui.QAction('Activate/Clear RangeSelector')
         self.ACshowselector.setIconText('RANGE SELECTOR')
-        self.ACshowselector.setFont(QtGui.QFont("Times", 12, QtGui.QFont.Bold))
+        self.ACshowselector.setFont(QtGui.QFont("Times", 12, QtGui.QFont.Weight.Bold))
         self.ACshowselector.triggered.connect(self._toggle_showselector)
 
         self.toolbar.addAction(self.ACshowselector)
@@ -138,7 +138,11 @@ class PlotCanvas(FigureCanvas):
         # setup the FigureCanvas
         self.fig = Figure(dpi=settings['FIG_DPI'], tight_layout=True)
         FigureCanvas.__init__(self, self.fig)
-        FigureCanvas.setSizePolicy(self, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        FigureCanvas.setSizePolicy(
+            self,
+            QtWidgets.QSizePolicy.Policy.Expanding,
+            QtWidgets.QSizePolicy.Policy.Expanding
+        )
         FigureCanvas.updateGeometry(self)  
 
         # init some statevars
@@ -350,7 +354,10 @@ class ModelWidget(QtWidgets.QGroupBox):
         return self.Yweightcombobox.currentText()
 
     def set_weight(self):
-        index = self.Yweightcombobox.findText(self.model.weight, QtCore.Qt.MatchFixedString)
+        index = self.Yweightcombobox.findText(
+            self.model.weight,
+            QtCore.Qt.MatchFlag.MatchFixedString
+        )
         if index >= 0:
             self.Yweightcombobox.setCurrentIndex(index)
 

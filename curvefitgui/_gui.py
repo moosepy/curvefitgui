@@ -2,7 +2,9 @@
 import warnings
 import sys
 from scipy.optimize import OptimizeWarning
-from PyQt5 import QtCore, QtWidgets
+from matplotlib.backends.qt_compat import QtWidgets, QtCore
+if QtCore.QT_VERSION_STR.startswith("5."):
+    raise ModuleNotFoundError("curvefitgui doesn't support PyQt5 / PySide5, please switch to PyQt6 or PySidte6")
 
 from ._tools import Fitter, value_to_string
 from ._widgets import PlotWidget, ModelWidget, ReportWidget
@@ -64,7 +66,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # putting it all together: Setup the main layout
         mainlayout = QtWidgets.QHBoxLayout(self._main)
-        splitter = QtWidgets.QSplitter(QtCore.Qt.Horizontal)
+        splitter = QtWidgets.QSplitter(QtCore.Qt.Orientation.Horizontal)
         splitter.addWidget(self.plotwidget)
         splitter.addWidget(self.fitcontrolframe)
         mainlayout.addWidget(splitter)
@@ -172,6 +174,6 @@ def execute_gui(f, xdata, ydata, xerr, yerr, p0, xlabel, ylabel,
 
     MyApplication = MainWindow(afitter, xlabel, ylabel)
     MyApplication.show()
-    app.exec_()  
+    app.exec()  
     return MyApplication.get_output()
     
