@@ -104,7 +104,7 @@ class PlotWidget(QtWidgets.QWidget):
         
         self.ACshowselector = QtWidgets.QAction('Activate/Clear RangeSelector')
         self.ACshowselector.setIconText('RANGE SELECTOR')
-        self.ACshowselector.setFont(QtGui.QFont("Times", 12, QtGui.QFont.Bold))
+        self.ACshowselector.setFont(QtGui.QFont(settings['FONT'], 12, QtGui.QFont.Bold))
         self.ACshowselector.triggered.connect(self._toggle_showselector)
 
         self.toolbar.addAction(self.ACshowselector)

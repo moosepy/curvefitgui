@@ -12,6 +12,9 @@ sort_residuals = yes
 # if yes, a warning box is shown related to x-errors
 show_x_error_warning = yes
 
+# font
+font = Times New Roman
+
 [fitparameter]
 # number of significant digits shown in textbox
 significant_digits = 4
