@@ -1,5 +1,12 @@
 from importlib import resources as _resources
 import configparser
+import matplotlib.font_manager as fm
+
+
+def is_font_available(font_name):
+    available_fonts = [f.name for f in fm.fontManager.ttflist]
+    return font_name in available_fonts
+
 
 
 _config = configparser.ConfigParser()
