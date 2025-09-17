@@ -5,16 +5,48 @@ import matplotlib as mpl
 
 
 
-
-
 def default_font():
     """
     Get the default font family used by Matplotlib.
 
     Returns:
-        str: The name of the default font family.
+        str: The resolved name of the default font family.
     """
-    return mpl.rcParams['font.family'][0]
+    family = mpl.rcParams['font.family']
+
+    # Normalize to list
+    if isinstance(family, str):
+        family = [family]
+
+    # Resolve generic aliases to actual font lists
+    for name in family:
+        if name == 'sans-serif':
+            # Try each font in the sans-serif list until we find an available one
+            for font in mpl.rcParams['font.sans-serif']:
+                if is_font_available(font):
+                    return font
+                
+        elif name == 'serif':
+            for font in mpl.rcParams['font.serif']:
+                if is_font_available(font):
+                    return font
+                
+        elif name == 'monospace':
+            for font in mpl.rcParams['font.monospace']:
+                if is_font_available(font):
+                    return font
+        else:
+            # It's an actual font name
+            if is_font_available(name):
+                return name
+    
+    # Ultimate fallback - find any available font
+    available_fonts = [f.name for f in fm.fontManager.ttflist]
+    if available_fonts:
+        return available_fonts[0]
+    
+    return 'DejaVu Sans'  # last resort
+
 
 def is_font_available(font_name):
     """
@@ -29,6 +61,7 @@ def is_font_available(font_name):
     available_fonts = [f.name for f in fm.fontManager.ttflist]
     return font_name in available_fonts
 
+
 def get_font(font_name):
     """
     Return the specified font name if available; otherwise, return the default font.
@@ -39,8 +72,10 @@ def get_font(font_name):
     Returns:
         str: The font name if available, otherwise the default font.
     """
+
     if is_font_available(font_name):
         return font_name
+    
     else:
         return default_font()
 
