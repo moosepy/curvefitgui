@@ -2,7 +2,10 @@
 import warnings
 import sys
 from scipy.optimize import OptimizeWarning
-from PyQt5 import QtCore, QtWidgets
+from ._qt_compat import (
+    QtWidgets, QtCore, exec_dialog, exec_app
+)
+
 
 from ._tools import Fitter, value_to_string
 from ._widgets import PlotWidget, ModelWidget, ReportWidget
@@ -34,6 +37,8 @@ class MainWindow(QtWidgets.QMainWindow):
         
 
     def initGUI(self):
+
+        
         # main GUI proprieties
         self.setGeometry(100, 100, 1415, 900)
         self.setWindowTitle('curvefitgui ' + CFGversion)
@@ -64,7 +69,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # putting it all together: Setup the main layout
         mainlayout = QtWidgets.QHBoxLayout(self._main)
-        splitter = QtWidgets.QSplitter(QtCore.Qt.Horizontal)
+        splitter = QtWidgets.QSplitter(QtCore.Qt.Orientation.Horizontal)
         splitter.addWidget(self.plotwidget)
         splitter.addWidget(self.fitcontrolframe)
         mainlayout.addWidget(splitter)
@@ -72,15 +77,17 @@ class MainWindow(QtWidgets.QMainWindow):
       
     def showdialog(self, message, icon, info='', details=''):
         """ shows an info dialog """
+       
         msg = QtWidgets.QMessageBox()
-        if icon == 'critical': msg.setIcon(QtWidgets.QMessageBox.Critical)
-        if icon == 'warning': msg.setIcon(QtWidgets.QMessageBox.Warning)
+        if icon == 'critical': msg.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+        if icon == 'warning': msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
         msg.setText(message)
         msg.setInformativeText(info)
         msg.setWindowTitle("Message")
         msg.setDetailedText(details)
-        msg.setStandardButtons(QtWidgets.QMessageBox.Ok)
-        msg.exec_()
+        msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+        exec_dialog(msg)
+        
 
     def set_output(self, output):
         """output should be a tuple with variables that are returned when closing the app"""
@@ -172,6 +179,7 @@ def execute_gui(f, xdata, ydata, xerr, yerr, p0, xlabel, ylabel,
 
     MyApplication = MainWindow(afitter, xlabel, ylabel)
     MyApplication.show()
-    app.exec_()  
+ 
+    exec_app(app)
     return MyApplication.get_output()
     

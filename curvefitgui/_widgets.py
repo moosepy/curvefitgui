@@ -1,6 +1,8 @@
 # import required packges
 import numpy as np
-from PyQt5 import QtWidgets, QtGui, QtCore
+from ._qt_compat import (
+    QtWidgets, QtCore, QtGui, QAction, QT_VERSION
+)
 
 # Matplotlib packages
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -102,9 +104,9 @@ class PlotWidget(QtWidgets.QWidget):
         self.toolbar = NavigationToolbar(self.canvas, self)
         self.toolbar.addSeparator()
         
-        self.ACshowselector = QtWidgets.QAction('Activate/Clear RangeSelector')
+        self.ACshowselector = QAction('Activate/Clear RangeSelector', self)
         self.ACshowselector.setIconText('RANGE SELECTOR')
-        self.ACshowselector.setFont(QtGui.QFont(settings['FONT'], 12, QtGui.QFont.Bold))
+        self.ACshowselector.setFont(QtGui.QFont(settings['FONT'], 12, QtGui.QFont.Weight.Bold))
         self.ACshowselector.triggered.connect(self._toggle_showselector)
 
         self.toolbar.addAction(self.ACshowselector)
@@ -138,7 +140,9 @@ class PlotCanvas(FigureCanvas):
         # setup the FigureCanvas
         self.fig = Figure(dpi=settings['FIG_DPI'], tight_layout=True)
         FigureCanvas.__init__(self, self.fig)
-        FigureCanvas.setSizePolicy(self, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        
+        FigureCanvas.setSizePolicy(self, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
+        
         FigureCanvas.updateGeometry(self)  
 
         # init some statevars
@@ -318,6 +322,7 @@ class ReportWidget(QtWidgets.QTextEdit):
 
 class ModelWidget(QtWidgets.QGroupBox):
     """ Qt widget to show and control the fit model """
+    
     def __init__(self, model, weightoptions):
         self.model = model
         QtWidgets.QGroupBox.__init__(self, 'Model settings')
@@ -350,7 +355,7 @@ class ModelWidget(QtWidgets.QGroupBox):
         return self.Yweightcombobox.currentText()
 
     def set_weight(self):
-        index = self.Yweightcombobox.findText(self.model.weight, QtCore.Qt.MatchFixedString)
+        index = self.Yweightcombobox.findText(self.model.weight, QtCore.Qt.MatchFlag.MatchFixedString)
         if index >= 0:
             self.Yweightcombobox.setCurrentIndex(index)
 
