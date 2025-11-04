@@ -4,7 +4,7 @@
 ![The GUI interface](https://github.com/moosepy/curvefitgui/raw/master/images/curvefitgui1.png)
 
 
-`curvefitgui` is a graphical interface to the non-linear curvefit function [scipy.optimise.curve_fit API reference](https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.optimize.curve_fit.html?highlight=scipy%20optimize%20curve_fit#scipy.optimize.curve_fit) of the scipy.optimize package. Currently, only the Levenberg-Marquard optimizer is supported. The GUI is based on PyQt5. 
+`curvefitgui` is a graphical interface to the non-linear curvefit function [scipy.optimise.curve_fit API reference](https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.optimize.curve_fit.html?highlight=scipy%20optimize%20curve_fit#scipy.optimize.curve_fit) of the scipy.optimize package. Currently, only the Levenberg-Marquard optimizer is supported. The GUI works with PyQt5 or PyQt6.
 
 ## Installation
 
@@ -17,9 +17,9 @@ The GUI is supported on Python 3.7 and above.
 
 - Using `pip`:
 
-      pip install numpy scipy matplotlib PyQt5
+      pip install numpy scipy matplotlib PyQt6
 
-- Using `conda`:    
+- Using `conda`:
 
       conda install numpy scipy matplotlib qtpy pyqt
 
